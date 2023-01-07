@@ -1,19 +1,20 @@
-import { type AppType, type AppProps } from "next/app";
-import { type Session } from "next-auth";
+import type { AppType, AppProps } from "next/app";
+import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-
 import { api } from "../utils/api";
-
 import "../styles/globals.css";
-import { NextPage } from "next";
-import { ReactElement, ReactNode } from "react";
+import type { NextPage } from "next";
+import type { ReactElement } from "react";
+import React from "react";
 
-export type NextPagewithLayout<P = {}, IP = P> = NextPage<P, IP> & {
-  getLayout?: (page: ReactElement) => ReactNode;
+type PageProps = Record<string, any>;
+
+export type NextPageWithLayout<P = PageProps, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: React.ReactElement) => React.ReactNode;
 };
 
 type AppPropsWithLayout = AppProps & {
-  Component: NextPagewithLayout;
+  Component: NextPageWithLayout;
 };
 
 const MyApp: AppType<{ session: Session | null }> = ({
